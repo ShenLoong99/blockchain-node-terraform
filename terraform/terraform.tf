@@ -1,6 +1,7 @@
 terraform {
   required_version = ">= 1.4.0"
   backend "remote" {
+    hostname     = "app.terraform.io"
     organization = "my_web3_projects"
 
     workspaces {
