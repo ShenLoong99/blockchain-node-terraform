@@ -17,8 +17,7 @@ data "http" "my_ip" {
 }
 
 locals {
-  ssh_ip = chomp(data.http.my_ip.body) # removes newline
-  ssh_cidr_blocks = ["${local.ssh_ip}/32"]
+  ssh_ip = chomp(data.http.my_ip.response_body)
 }
 
 
