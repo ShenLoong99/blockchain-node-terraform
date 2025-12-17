@@ -48,7 +48,7 @@ resource "tls_private_key" "node_key" {
 
 resource "aws_key_pair" "node_key" {
   key_name   = var.key_name
-  public_key = tls_private_key.node_key.public_key_openssh
+  public_key = var.ssh_public_key
 
   lifecycle {
     ignore_changes = [key_name]
