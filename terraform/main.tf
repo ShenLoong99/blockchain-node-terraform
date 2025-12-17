@@ -12,6 +12,16 @@ data "aws_ami" "ubuntu" {
   }
 }
 
+data "http" "my_ip" {
+  url = "https://ifconfig.me/ip"
+}
+
+locals {
+  ssh_ip = chomp(data.http.my_ip.body) # removes newline
+  ssh_cidr_blocks = ["${local.ssh_ip}/32"]
+}
+
+
 resource "aws_instance" "blockchain_node" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
