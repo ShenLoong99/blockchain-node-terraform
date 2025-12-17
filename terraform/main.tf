@@ -59,4 +59,8 @@ resource "local_file" "private_key_file" {
   content         = tls_private_key.node_key.private_key_pem
   filename        = "blockchain-node-key"
   file_permission = "0600"
+
+  lifecycle {
+    ignore_changes = [content, filename]
+  }
 }
