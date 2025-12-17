@@ -22,8 +22,8 @@ variable "key_name" {
 #   default     = ["161.142.156.205/32"]
 # }
 
-variable "ssh_public_key" {
-  type        = string
-  description = "Public SSH key for EC2 access"
-  default     = file("ssh/blockchain-node-key.pub")
-}
+# variable "ssh_public_key" {
+#   type        = string
+#   description = "Public SSH key for EC2 access"
+#   default     = file("blockchain-node-key.pub")
+# }

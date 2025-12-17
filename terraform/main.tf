@@ -27,9 +27,9 @@ resource "aws_instance" "blockchain_node" {
   key_name               = aws_key_pair.node_key.key_name
   user_data              = file("${path.module}/user_data.sh")
 
-#   provisioner "local-exec" {
-#     command = "chmod 600 ${local_file.private_key_pem.filename}"
-#   }
+  #   provisioner "local-exec" {
+  #     command = "chmod 600 ${local_file.private_key_pem.filename}"
+  #   }
 
   tags = {
     Type = "blockchain-node"
@@ -48,7 +48,7 @@ resource "tls_private_key" "node_key" {
 
 resource "aws_key_pair" "node_key" {
   key_name   = var.key_name
-  public_key = var.ssh_public_key
+  public_key = file("/ssh/blockchain-node-key.pub")
 
   lifecycle {
     ignore_changes = [key_name]
