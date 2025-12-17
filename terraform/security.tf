@@ -32,3 +32,12 @@ resource "aws_security_group_rule" "ssh_access" {
   security_group_id = aws_security_group.node_sg.id
   cidr_blocks       = ["0.0.0.0/0"]
 }
+
+resource "aws_security_group_rule" "rpc_access" {
+  type              = "ingress"
+  from_port         = 8545
+  to_port           = 8545
+  protocol          = "tcp"
+  security_group_id = aws_security_group.node_sg.id
+  cidr_blocks       = ["0.0.0.0/0"]
+}
