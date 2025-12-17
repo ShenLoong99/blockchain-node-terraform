@@ -27,5 +27,5 @@ resource "aws_instance" "blockchain_node" {
 
 resource "aws_key_pair" "node_key" {
   key_name   = "blockchain-node-key"
-  public_key = file("~/.ssh/blockchain-node-key.pub")
+  public_key = var.ssh_public_key
 }

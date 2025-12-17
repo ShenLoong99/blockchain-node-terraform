@@ -14,3 +14,8 @@ variable "ssh_cidr_blocks" {
   type        = list(string)
   description = "CIDRs allowed to SSH into the node"
 }
+
+variable "ssh_public_key" {
+  type        = string
+  description = "Public SSH key for EC2 access"
+}
