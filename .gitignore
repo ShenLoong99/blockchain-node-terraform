@@ -45,3 +45,5 @@ terraform.rc
 
 # Ignore private keys
 blockchain-node-key
+# Commit public keys
+!blockchain-node-key.pub

@@ -39,28 +39,13 @@ resource "aws_instance" "blockchain_node" {
   lifecycle {
     ignore_changes = [security_groups]
   }
-
-}
-
-resource "tls_private_key" "node_key" {
-  algorithm = "RSA"
 }
 
 resource "aws_key_pair" "node_key" {
   key_name   = var.key_name
   public_key = file("${path.module}/ssh/blockchain-node-key.pub")
 
-  lifecycle {
-    ignore_changes = [key_name]
-  }
-}
-
-resource "local_file" "private_key_file" {
-  content         = tls_private_key.node_key.private_key_pem
-  filename        = "blockchain-node-key"
-  file_permission = "0600"
-
-  lifecycle {
-    ignore_changes = [content, filename]
-  }
+#   lifecycle {
+#     ignore_changes = [key_name]
+#   }
 }
