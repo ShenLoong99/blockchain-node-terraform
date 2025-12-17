@@ -10,12 +10,19 @@ variable "instance_type" {
   default     = "t3.micro"
 }
 
-variable "ssh_cidr_blocks" {
-  type        = list(string)
-  description = "CIDRs allowed to SSH into the node"
+variable "key_name" {
+  description = "EC2 instance type"
+  type        = string
+  default     = "blockchain-node-key"
 }
 
-variable "ssh_public_key" {
-  type        = string
-  description = "Public SSH key for EC2 access"
-}
+# variable "ssh_cidr_blocks" {
+#   type        = list(string)
+#   description = "CIDRs allowed to SSH into the node"
+#   default     = ["161.142.156.205/32"]
+# }
+
+# variable "ssh_public_key" {
+#   type        = string
+#   description = "Public SSH key for EC2 access"
+# }

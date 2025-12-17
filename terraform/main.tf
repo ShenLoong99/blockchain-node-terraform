@@ -12,6 +12,14 @@ data "aws_ami" "ubuntu" {
   }
 }
 
+data "http" "my_ip" {
+  url = "https://ifconfig.me/ip"
+}
+
+locals {
+  ssh_cidr_blocks = ["${chomp(data.http.my_ip.response_body)}/32"]
+}
+
 resource "aws_instance" "blockchain_node" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
@@ -19,13 +27,37 @@ resource "aws_instance" "blockchain_node" {
   key_name               = aws_key_pair.node_key.key_name
   user_data              = file("${path.module}/user_data.sh")
 
+#   provisioner "local-exec" {
+#     command = "chmod 600 ${local_file.private_key_pem.filename}"
+#   }
+
   tags = {
     Type = "blockchain-node"
     Name = "ethereum-sepolia-node"
   }
+
+  lifecycle {
+    ignore_changes = [security_groups]
+  }
+
+}
+
+resource "tls_private_key" "node_key" {
+  algorithm = "RSA"
 }
 
 resource "aws_key_pair" "node_key" {
-  key_name   = "blockchain-node-key"
-  public_key = var.ssh_public_key
+  key_name   = var.key_name
+  public_key = tls_private_key.node_key.public_key_openssh
+
+  lifecycle {
+    ignore_changes = [key_name]
+  }
+
+}
+
+resource "local_file" "private_key_file" {
+  content         = tls_private_key.node_key.private_key_pem
+  filename        = "blockchain-node-key"
+  file_permission = "0600"
 }
