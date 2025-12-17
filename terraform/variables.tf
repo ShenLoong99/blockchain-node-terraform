@@ -1,7 +1,6 @@
 variable "aws_region" {
   description = "AWS region to deploy resources"
   type        = string
-  default     = "ap-southeast-1"
 }
 
 variable "instance_type" {
@@ -10,13 +9,7 @@ variable "instance_type" {
   default     = "t3.micro"
 }
 
-variable "key_name" {
-  description = "Optional SSH key name"
-  default     = null
-}
-
-variable "p2p_cidr_blocks" {
-  description = "Allowed CIDR blocks for blockchain P2P traffic"
+variable "ssh_cidr_blocks" {
   type        = list(string)
-  default     = []
+  description = "CIDRs allowed to SSH into the node"
 }
