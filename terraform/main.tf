@@ -17,9 +17,9 @@ data "http" "my_ip" {
 }
 
 locals {
-  ssh_ip = chomp(data.http.my_ip.response_body)
+  ssh_ip          = chomp(data.http.my_ip.response_body)
+  ssh_cidr_blocks = ["${local.ssh_ip}/32"]
 }
-
 
 resource "aws_instance" "blockchain_node" {
   ami                    = data.aws_ami.ubuntu.id
