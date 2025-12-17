@@ -53,7 +53,6 @@ resource "aws_key_pair" "node_key" {
   lifecycle {
     ignore_changes = [key_name]
   }
-
 }
 
 resource "local_file" "private_key_file" {
