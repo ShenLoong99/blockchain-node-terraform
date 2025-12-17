@@ -48,7 +48,7 @@ resource "tls_private_key" "node_key" {
 
 resource "aws_key_pair" "node_key" {
   key_name   = var.key_name
-  public_key = file("/ssh/blockchain-node-key.pub")
+  public_key = file("${path.module}/ssh/blockchain-node-key.pub")
 
   lifecycle {
     ignore_changes = [key_name]
