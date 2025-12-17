@@ -27,25 +27,13 @@ resource "aws_instance" "blockchain_node" {
   key_name               = aws_key_pair.node_key.key_name
   user_data              = file("${path.module}/user_data.sh")
 
-  #   provisioner "local-exec" {
-  #     command = "chmod 600 ${local_file.private_key_pem.filename}"
-  #   }
-
   tags = {
     Type = "blockchain-node"
     Name = "ethereum-sepolia-node"
-  }
-
-  lifecycle {
-    ignore_changes = [security_groups]
   }
 }
 
 resource "aws_key_pair" "node_key" {
   key_name   = var.key_name
   public_key = file("${path.module}/ssh/blockchain-node-key.pub")
-
-#   lifecycle {
-#     ignore_changes = [key_name]
-#   }
 }
