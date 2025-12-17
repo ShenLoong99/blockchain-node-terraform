@@ -1,13 +1,13 @@
 terraform {
   required_version = ">= 1.4.0"
-  # backend "remote" {
-  #   hostname     = "app.terraform.io"
-  #   organization = "my_web3_projects"
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "my_web3_projects"
 
-  #   workspaces {
-  #     name = "blockchain-node-terraform"
-  #   }
-  # }
+    workspaces {
+      name = "blockchain-node-terraform"
+    }
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"

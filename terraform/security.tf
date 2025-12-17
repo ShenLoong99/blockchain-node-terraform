@@ -31,8 +31,4 @@ resource "aws_security_group_rule" "ssh_access" {
   protocol          = "tcp"
   security_group_id = aws_security_group.node_sg.id
   cidr_blocks       = ["0.0.0.0/0"]
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
