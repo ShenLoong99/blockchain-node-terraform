@@ -34,6 +34,6 @@ resource "aws_instance" "blockchain_node" {
 }
 
 resource "aws_key_pair" "node_key" {
-  key_name   = "${var.key_name}-v2"
+  key_name   = var.key_name
   public_key = file("${path.module}/ssh/blockchain-node-key.pub")
 }
