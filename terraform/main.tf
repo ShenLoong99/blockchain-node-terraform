@@ -12,14 +12,6 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-data "http" "my_ip" {
-  url = "https://ifconfig.me/ip"
-}
-
-locals {
-  ssh_cidr_blocks = ["${chomp(data.http.my_ip.response_body)}/32"]
-}
-
 resource "aws_instance" "blockchain_node" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
@@ -33,7 +25,13 @@ resource "aws_instance" "blockchain_node" {
   }
 }
 
+# 1. Let Terraform generate the key in memory
+resource "tls_private_key" "node_key" {
+  algorithm = "ED25519"
+}
+
+# 2. Use that "in-memory" public key for AWS
 resource "aws_key_pair" "node_key" {
   key_name   = var.key_name
-  public_key = file("${path.module}/ssh/blockchain-node-key.pub")
+  public_key = tls_private_key.node_key.public_key_openssh
 }

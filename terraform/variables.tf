@@ -16,11 +16,10 @@ variable "key_name" {
   default     = "blockchain-node-key"
 }
 
-# variable "ssh_cidr_blocks" {
-#   type        = list(string)
-#   description = "CIDRs allowed to SSH into the node"
-#   default     = ["161.142.156.205/32"]
-# }
+variable "my_local_ip" {
+  type        = string
+  description = "My local public IP address (e.g., 1.2.3.4/32)"
+}
 
 # variable "ssh_public_key" {
 #   type        = string
