@@ -19,7 +19,4 @@ nohup geth \
   --http.api eth,net,web3 \
   --http.corsdomain "*" \
   --http.vhosts "*" \
-  --peer.discovery.dns \
-  --maxpeers 50 \
-  --verbosity 3 \
   > /var/log/geth.log 2>&1 &
