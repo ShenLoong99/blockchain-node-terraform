@@ -12,11 +12,9 @@ mkdir -p /var/lib/geth
 
 nohup geth \
   --sepolia \
-  --syncmode light \
+  --syncmode snap \
   --http \
-  --http.addr 0.0.0.0 \
+  --http.addr 127.0.0.1 \
   --http.port 8545 \
   --http.api eth,net,web3 \
-  --http.corsdomain "*" \
-  --http.vhosts "*" \
   > /var/log/geth.log 2>&1 &
